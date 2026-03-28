@@ -60,7 +60,7 @@ async fn main() -> Result<()> {
         .with_graceful_shutdown(shutdown_signal())
         .await?;
 
-    info!("clawd stopped");
+    info!("claw-init stopped");
     Ok(())
 }
 

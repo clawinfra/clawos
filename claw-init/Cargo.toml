@@ -1,12 +1,12 @@
 [package]
-name = "clawd"
+name = "claw-init"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 description = "ClawOS init daemon — HTTP API, config loader, signal handler"
 
 [[bin]]
-name = "clawd"
+name = "claw-init"
 path = "src/main.rs"
 
 [dependencies]
