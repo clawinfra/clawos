@@ -1,0 +1,32 @@
+# claw-forge configuration for ClawOS
+model_aliases:
+  opus:   claude-opus-4-6
+  sonnet: claude-sonnet-4-6
+
+pool:
+  strategy: priority
+  max_retries: 3
+
+providers:
+  claude-oauth:
+    type: anthropic_oauth
+    oauth_token: ${ANTHROPIC_SETUP_TOKEN}
+    priority: 1
+    enabled: true
+
+agent:
+  default_model: claude-sonnet-4-6
+  plan_model: claude-opus-4-6
+  max_tokens: 8192
+  max_concurrent_agents: 2
+
+skills:
+  - rust-analyzer
+  - systematic-debug
+  - git-workflow
+
+git:
+  enabled: true
+  merge_strategy: auto
+  branch_prefix: feat
+  commit_on_plugin_boundary: true
