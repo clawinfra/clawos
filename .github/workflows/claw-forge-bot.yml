@@ -34,7 +34,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install claw-forge
-        run: uv pip install "claw-forge==0.5.6"
+        run: uv pip install --system "claw-forge==0.5.6"
 
       - name: Configure Git
         run: |
