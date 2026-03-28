@@ -34,7 +34,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install claw-forge
-        run: uv pip install claw-forge
+        run: uv pip install "claw-forge==0.5.6"
 
       - name: Configure Git
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Run claw-forge
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_SETUP_TOKEN: ${{ secrets.ANTHROPIC_SETUP_TOKEN }}
         run: |
           ISSUE_NUMBER="${{ github.event.issue.number }}"
           REPO_OWNER="${{ github.repository_owner }}"
