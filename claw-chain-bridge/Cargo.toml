@@ -1,0 +1,10 @@
+[package]
+name = "claw-chain-bridge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "ClawChain JSON-RPC bridge for ClawOS (Phase 3 stub)"
+
+[dependencies]
+anyhow = { workspace = true }
+tracing = { workspace = true }

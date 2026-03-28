@@ -1,0 +1,25 @@
+# ClawOS default configuration
+# Copy to ~/.clawd/config.toml or /etc/clawd/config.toml
+
+[clawd]
+log_level = "info"
+data_dir = "~/.clawd/data"
+
+[http]
+bind = "0.0.0.0"
+port = 7070
+
+[mqtt]
+port = 1883
+max_connections = 100
+
+[chain]
+dry_run = true
+rpc_url = "ws://127.0.0.1:9944"
+key_path = "~/.clawd/keys/agent.key"
+
+[watchdog]
+check_interval_secs = 10
+heartbeat_timeout_secs = 30
+auto_restart = true
+max_restarts = 5

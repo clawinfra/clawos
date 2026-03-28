@@ -1,0 +1,10 @@
+[package]
+name = "claw-mqtt"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "MQTT broker integration for ClawOS (Phase 2 stub)"
+
+[dependencies]
+anyhow = { workspace = true }
+tracing = { workspace = true }

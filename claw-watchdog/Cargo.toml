@@ -1,0 +1,10 @@
+[package]
+name = "claw-watchdog"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Health monitor and watchdog for ClawOS agents (Phase 4 stub)"
+
+[dependencies]
+anyhow = { workspace = true }
+tracing = { workspace = true }
