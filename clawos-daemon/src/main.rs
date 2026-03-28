@@ -20,7 +20,7 @@ async fn main() -> Result<()> {
     // Load config
     let config_path = std::env::var("CLAWD_CONFIG")
         .map(PathBuf::from)
-        .unwrap_or_else(|_| PathBuf::from("/etc/clawd/config.toml"));
+        .unwrap_or_else(|_| PathBuf::from("/etc/clawos/config.toml"));
 
     let home_config = dirs_or_default().join("config.toml");
     let config = if config_path.exists() {
@@ -34,14 +34,14 @@ async fn main() -> Result<()> {
 
     // Initialize tracing
     let env_filter = tracing_subscriber::EnvFilter::try_from_default_env()
-        .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new(&config.clawd.log_level));
+        .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new(&config.clawos.log_level));
 
     tracing_subscriber::fmt()
         .with_env_filter(env_filter)
         .with_target(false)
         .init();
 
-    info!(version = VERSION, "clawd starting");
+    info!(version = VERSION, "clawos starting");
 
     // Build app state
     let registry = AgentRegistry::new();
@@ -60,7 +60,7 @@ async fn main() -> Result<()> {
         .with_graceful_shutdown(shutdown_signal())
         .await?;
 
-    info!("claw-init stopped");
+    info!("clawos stopped");
     Ok(())
 }
 
@@ -93,9 +93,9 @@ async fn shutdown_signal() {
     }
 }
 
-/// Get the default clawd data directory (~/.clawd/).
+/// Get the default clawos data directory (~/.clawos/).
 fn dirs_or_default() -> PathBuf {
     dirs::home_dir()
         .unwrap_or_else(|| PathBuf::from("/tmp"))
-        .join(".clawd")
+        .join(".clawos")
 }

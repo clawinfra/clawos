@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
-    "claw-init",
+    "clawos-daemon",
     "claw-agent-registry",
     "claw-mqtt",
     "claw-chain-bridge",

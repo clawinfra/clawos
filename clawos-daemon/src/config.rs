@@ -3,11 +3,11 @@ use std::path::Path;
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 
-/// Top-level clawd configuration, loaded from TOML.
+/// Top-level clawos configuration, loaded from TOML.
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ClawdConfig {
     #[serde(default)]
-    pub clawd: DaemonConfig,
+    pub clawos: DaemonConfig,
     #[serde(default)]
     pub http: HttpConfig,
     #[serde(default)]
@@ -117,7 +117,7 @@ fn default_log_level() -> String {
     "info".to_string()
 }
 fn default_data_dir() -> String {
-    "~/.clawd/data".to_string()
+    "~/.clawos/data".to_string()
 }
 fn default_bind() -> String {
     "0.0.0.0".to_string()
@@ -138,7 +138,7 @@ fn default_rpc_url() -> String {
     "ws://127.0.0.1:9944".to_string()
 }
 fn default_key_path() -> String {
-    "~/.clawd/keys/agent.key".to_string()
+    "~/.clawos/keys/agent.key".to_string()
 }
 fn default_check_interval() -> u64 {
     10
@@ -181,7 +181,7 @@ mod tests {
         let config = ClawdConfig::default();
         assert_eq!(config.http.port, 7070);
         assert_eq!(config.http.bind, "0.0.0.0");
-        assert_eq!(config.clawd.log_level, "info");
+        assert_eq!(config.clawos.log_level, "info");
         assert!(config.chain.dry_run);
         assert_eq!(config.watchdog.check_interval_secs, 10);
     }
@@ -195,16 +195,16 @@ port = 8080
         let config: ClawdConfig = toml::from_str(toml_str).expect("parse");
         assert_eq!(config.http.port, 8080);
         // Defaults for everything else
-        assert_eq!(config.clawd.log_level, "info");
+        assert_eq!(config.clawos.log_level, "info");
         assert!(config.chain.dry_run);
     }
 
     #[test]
     fn test_parse_full_toml() {
         let toml_str = r#"
-[clawd]
+[clawos]
 log_level = "debug"
-data_dir = "/var/lib/clawd"
+data_dir = "/var/lib/clawos"
 
 [http]
 bind = "127.0.0.1"
@@ -217,7 +217,7 @@ max_connections = 50
 [chain]
 dry_run = false
 rpc_url = "ws://mainnet.clawchain.io:9944"
-key_path = "/etc/clawd/agent.key"
+key_path = "/etc/clawos/agent.key"
 
 [watchdog]
 check_interval_secs = 5
@@ -226,7 +226,7 @@ auto_restart = false
 max_restarts = 3
 "#;
         let config: ClawdConfig = toml::from_str(toml_str).expect("parse");
-        assert_eq!(config.clawd.log_level, "debug");
+        assert_eq!(config.clawos.log_level, "debug");
         assert_eq!(config.http.bind, "127.0.0.1");
         assert_eq!(config.http.port, 9090);
         assert_eq!(config.mqtt.port, 1884);
@@ -252,6 +252,6 @@ max_restarts = 3
         let toml_str = toml::to_string_pretty(&config).expect("serialize");
         let parsed: ClawdConfig = toml::from_str(&toml_str).expect("parse");
         assert_eq!(config.http.port, parsed.http.port);
-        assert_eq!(config.clawd.log_level, parsed.clawd.log_level);
+        assert_eq!(config.clawos.log_level, parsed.clawos.log_level);
     }
 }

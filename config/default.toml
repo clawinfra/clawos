@@ -1,9 +1,9 @@
 # ClawOS default configuration
-# Copy to ~/.clawd/config.toml or /etc/clawd/config.toml
+# Copy to ~/.clawos/config.toml or /etc/clawos/config.toml
 
-[clawd]
+[clawos]
 log_level = "info"
-data_dir = "~/.clawd/data"
+data_dir = "~/.clawos/data"
 
 [http]
 bind = "0.0.0.0"
@@ -16,7 +16,7 @@ max_connections = 100
 [chain]
 dry_run = true
 rpc_url = "ws://127.0.0.1:9944"
-key_path = "~/.clawd/keys/agent.key"
+key_path = "~/.clawos/keys/agent.key"
 
 [watchdog]
 check_interval_secs = 10

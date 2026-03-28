@@ -18,7 +18,7 @@ impl Default for ChainBridgeConfig {
         Self {
             dry_run: true,
             rpc_url: "ws://127.0.0.1:9944".to_string(),
-            key_path: "~/.clawd/keys/agent.key".to_string(),
+            key_path: "~/.clawos/keys/agent.key".to_string(),
         }
     }
 }

@@ -1,9 +1,9 @@
 # ClawOS configuration optimized for Raspberry Pi
 # Lower resource usage, shorter intervals
 
-[clawd]
+[clawos]
 log_level = "info"
-data_dir = "/var/lib/clawd"
+data_dir = "/var/lib/clawos"
 
 [http]
 bind = "0.0.0.0"
@@ -16,7 +16,7 @@ max_connections = 20
 [chain]
 dry_run = true
 rpc_url = "ws://127.0.0.1:9944"
-key_path = "/etc/clawd/agent.key"
+key_path = "/etc/clawos/agent.key"
 
 [watchdog]
 check_interval_secs = 15
