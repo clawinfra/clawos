@@ -17,19 +17,24 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // Load config
-    let config_path = std::env::var("CLAWD_CONFIG")
-        .map(PathBuf::from)
-        .unwrap_or_else(|_| PathBuf::from("/etc/clawos/config.toml"));
-
-    let home_config = dirs_or_default().join("config.toml");
-    let config = if config_path.exists() {
-        ClawdConfig::load(&config_path)?
-    } else if home_config.exists() {
-        ClawdConfig::load(&home_config)?
-    } else {
-        info!("no config file found, using defaults");
-        ClawdConfig::default()
+    // Load config. Precedence: an explicit CLAWD_CONFIG env var, then
+    // /etc/clawos/config.toml, then ~/.clawos/config.toml, then defaults.
+    let config = match std::env::var("CLAWD_CONFIG") {
+        // An explicitly-requested config must exist: silently falling back to
+        // defaults here would hide a typo'd path and start with the wrong config.
+        Ok(path) => ClawdConfig::load(&PathBuf::from(path))?,
+        Err(_) => {
+            let etc_config = PathBuf::from("/etc/clawos/config.toml");
+            let home_config = dirs_or_default().join("config.toml");
+            if etc_config.exists() {
+                ClawdConfig::load(&etc_config)?
+            } else if home_config.exists() {
+                ClawdConfig::load(&home_config)?
+            } else {
+                info!("no config file found, using defaults");
+                ClawdConfig::default()
+            }
+        }
     };
 
     // Initialize tracing
